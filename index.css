@@ -1,0 +1,31 @@
+html, body {
+    height: 100%;
+    margin: 0 auto;
+    background-image: url("media/new_bezier.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+    background-color: rgb(255,255,255);
+    border: 3px solid rgb(173, 100, 17);
+} 
+
+button {
+    width: 300px;
+    height: 70px;
+    text-align: center;
+    background-color: rgb(61, 78, 118);
+    font-size: 20px;
+    color: rgb(227, 224, 222);
+    display: block;
+    margin: auto;
+}
+
+#buttons {
+    display: block;
+    margin: auto;
+}
