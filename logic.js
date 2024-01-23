@@ -11,9 +11,6 @@ let mouseY;
 const marginLeft = canvas.getBoundingClientRect().x;
 const marginTop = canvas.getBoundingClientRect().y;
 
-//TODO: add a scroller for the value of t
-//TODO: show the inbetween line if possible; they will be shown with a new button
-
 let addPointsButton = document.getElementById("add-points-btn");
 let clearScreenButton = document.getElementById("clear-screen-btn");
 let showCurveButton = document.getElementById("show-curve-btn");
@@ -80,7 +77,7 @@ function draw(plist) {
 // draw the Bezier Curve
 function drawCurve(plist) {
     let ctx = canvas.getContext('2d');
-    const accuracy = 0.01; // tova e t
+    const accuracy = 0.01;
     ctx.beginPath();
 
     ctx.strokeStyle = curveColor;
