@@ -13,6 +13,12 @@
 </head>
 <body>
     <canvas id="canvas"></canvas>
+    <div id="valueT">
+        <label id="minValue" for="slider">Min value: 0</label>
+        <label id="currentValue" for="slider">Current value: 0.5</label>
+        <label id="maxValue" for="slider">Max value: 1</label>
+    </div>
+    <input id="slider" type="range" min="0" max="1" step="0.001" value="0.50">
     <div id="buttons">
         <button id="add-points-btn" value="off">Add Points</button>
         <button id="show-curve-btn" value = "off">Show Curve</button>
