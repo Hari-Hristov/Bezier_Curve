@@ -3,7 +3,6 @@ let context = canvas.getContext('2d');
 canvas.width = screen.width / 2;
 canvas.height = screen.height / 2;
 
-// fix the slider's movement
 let plist = [];
 const transparentWhite = 'rgba(255,255,255,0)';
 
@@ -29,34 +28,6 @@ let showSubdivisionsButton = document.getElementById("show-subdivisions-btn");
 
 function fixSlider() {
     t = parseFloat(slider.value);
-    draw();
-    
-    const minValueLabel = document.getElementById('minValue');
-    const currentValueLabel = document.getElementById('currentValue');
-    const maxValueLabel = document.getElementById('maxValue');
-
-    minValueLabel.innerText = `Min Value: ${slider.min}`;
-    currentValueLabel.innerText = `Current Value: ${parseFloat(slider.value).toFixed(2)}`;
-    maxValueLabel.innerText = `Max Value: ${slider.max}`;
-}
-document.addEventListener("mousemove", function (e) {
-    e.preventDefault();
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
-slider.addEventListener('mousemove', function(event) {
-    let boundingRect = slider.getBoundingClientRect();
-    let mouseX = event.clientX - boundingRect.left;
-    let sliderWidth = boundingRect.width;
-    let percent = mouseX / sliderWidth;
-    let newValue = percent * (slider.max - slider.min);
-    slider.value = newValue;
-    fixSlider();
-});
-
-slider.addEventListener('click', function(e) {
-    t = parseFloat(slider.value);
     cancelAnimationFrame(id);
     
     const minValueLabel = document.getElementById('minValue');
@@ -68,7 +39,25 @@ slider.addEventListener('click', function(e) {
     maxValueLabel.innerText = `Max Value: ${slider.max}`;
 
     draw();
-})
+}
+document.addEventListener("mousemove", function (e) {
+    e.preventDefault();
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+// if you want the slider to follow the mouse, but it is not recommended since it makes the interface more difficult to work with
+// slider.addEventListener('onchange', function(e) {
+//     let boundingRect = slider.getBoundingClientRect();
+//     let mouseX = e.clientX - boundingRect.left;
+//     let sliderWidth = boundingRect.width;
+//     let percent = mouseX / sliderWidth;
+//     let newValue = percent * (slider.max - slider.min);
+//     slider.value = newValue;
+//     fixSlider();
+// });
+
+slider.addEventListener('mousedown', fixSlider);
 
 
 function isPositionInvalid(x, y) {
@@ -137,7 +126,7 @@ function draw() {
         let currentPoints = [...plist];
 
         while (currentPoints.length > 1) {
-            currentPoints = calculateSubdivide(currentPoints, t);
+            currentPoints = subdivisions(currentPoints, t);
             if(showCurve) {
                 drawCurve(context, plist);
             }
@@ -151,21 +140,21 @@ function draw() {
   }
 }
 
-function calculateSubdivide(points, t) {
+function subdivisions(points, t) {
     const subdividedPoints = [];
   
     for (let i = 1; i < points.length; i++) {
       const prevPoint = points[i - 1];
       const currentPoint = points[i];
   
-      const interpolatedPoint = linearInterpolation(prevPoint, currentPoint, t);
+      const interpolatedPoint = interpolate(prevPoint, currentPoint, t);
       subdividedPoints.push(interpolatedPoint);
     }
   
     return subdividedPoints;
 }
 
-function linearInterpolation(p0, p1, t) {
+function interpolate(p0, p1, t) {
     return {
       x: p0.x + (p1.x - p0.x) * t,
       y: p0.y + (p1.y - p0.y) * t,
