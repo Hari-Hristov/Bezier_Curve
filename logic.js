@@ -59,7 +59,6 @@ document.addEventListener("mousemove", function (e) {
 
 slider.addEventListener('mousedown', fixSlider);
 
-
 function isPositionInvalid(x, y) {
     return x < marginLeft || x > marginLeft + canvas.width || y < marginTop || y > marginTop + canvas.height
 }
