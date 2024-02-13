@@ -57,7 +57,7 @@ document.addEventListener("mousemove", function (e) {
 //     fixSlider();
 // });
 
-slider.addEventListener('click', fixSlider);
+slider.addEventListener('input', fixSlider);
 
 function isPositionInvalid(x, y) {
     return x < marginLeft || x > marginLeft + canvas.width || y < marginTop || y > marginTop + canvas.height
